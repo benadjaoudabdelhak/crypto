@@ -13,7 +13,7 @@ db_config = {
 
     "user": "root",
 
-    "password": "root",
+    "password": "admin",
 
     "database": "SecureDataCorp"
 

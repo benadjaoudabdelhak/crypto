@@ -3,7 +3,7 @@ import os
 import base64
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
  
-# 📌 Connexion à MySQL
+
 db_config = {
     "host": "localhost",
     "user": "root",
@@ -13,8 +13,7 @@ db_config = {
  
 conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()
- 
-# 📌 Générer une clé AES-256 automatiquement
+
 key = os.urandom(32)  # 256 bits
 iv = os.urandom(16)   # IV de 128 bits
  
@@ -28,8 +27,7 @@ def encrypt_data(data):
     padded_data = data.ljust(16 * ((len(data) // 16) + 1))
     ciphertext = encryptor.update(padded_data.encode()) + encryptor.finalize()
     return base64.b64encode(iv + ciphertext).decode()
- 
-# 📌 Mise à jour des données chiffrées
+
 tables_columns = {
     "patients": ["num_secu", "adresse", "telephone"],
     "dossiers_medicaux": ["diagnostic"],
@@ -39,7 +37,7 @@ tables_columns = {
  
 for table, columns in tables_columns.items():
     for column in columns:
-        cursor.execute(f"SELECT id, {column} FROM {table}")  # Récupérer les données
+        cursor.execute(f"SELECT id, {column} FROM {table}") 
         rows = cursor.fetchall()
  
         for row_id, data in rows:
